@@ -1,25 +1,36 @@
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
-import notFoundLogo from '../../assets/404.svg'
 
-const MainContainer = styled.div`
+const ErrorWrapper = styled.div`
+  margin: 30px;
   display: flex;
   flex-direction: column;
+  background-color: ${colors.background};
   align-items: center;
-  justify-content: center;
-  margin: 2rem;
-  background-color: ${colors.backgroundLight};
 `
 
-const Text = styled.h3``
+const ErrorTitle = styled.h1`
+  font-weight: 300;
+`
+
+const ErrorSubtitle = styled.h2`
+  font-weight: 300;
+  color: ${colors.secondary};
+`
+
+const Illustration = styled.img`
+  max-width: 800px;
+`
 
 function Error() {
   return (
-    <MainContainer>
-      <Text>Oups...</Text>
-      <img src={notFoundLogo} alt="Page introuvable" />
-      <Text>Il semblerait qu’il y ait un problème</Text>
-    </MainContainer>
+    <ErrorWrapper>
+      <ErrorTitle>Oups...</ErrorTitle>
+      <Illustration src="https://github.com/atoulmet/assets/blob/master/404.svg?raw=true" />
+      <ErrorSubtitle>
+        Il semblerait que la page que vous cherchez n’existe pas
+      </ErrorSubtitle>
+    </ErrorWrapper>
   )
 }
 

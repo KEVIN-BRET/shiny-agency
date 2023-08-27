@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import colors from '../../utils/style/colors'
 import { Loader } from '../../utils/style/Atoms'
 import { SurveyContext } from '../../utils/context'
+import { useFetch } from '../../utils/hooks'
 
 const SurveyContainer = styled.div`
   display: flex;
@@ -61,30 +62,21 @@ function Survey() {
   const questionNumberInt = parseInt(questionNumber)
   const prevQuestionNumber = questionNumberInt === 1 ? 1 : questionNumberInt - 1
   const nextQuestionNumber = questionNumberInt + 1
-  const [surveyData, setSurveyData] = useState({})
-  const [isDataLoading, setDataLoading] = useState(false)
+  const [Data, setData] = useState({})
+  const [isLoading, setLoading] = useState(false)
   const { saveAnswers, answers } = useContext(SurveyContext)
   const [error, setError] = useState(false)
+
+  const { data, isLoading } = useFetch(`http://localhost:8000/survey`)
+
+  const { surveyData } = data
 
   function saveReply(answer) {
     saveAnswers({ [questionNumber]: answer })
   }
 
   useEffect(() => {
-    async function fetchSurvey() {
-      setDataLoading(true)
-      try {
-        const response = await fetch(`http://localhost:8000/survey`)
-        const { surveyData } = await response.json()
-        setSurveyData(surveyData)
-      } catch (err) {
-        console.log(err)
-        setError(true)
-      } finally {
-        setDataLoading(false)
-      }
-    }
-    fetchSurvey()
+
   }, [])
 
   if (error) {
@@ -94,10 +86,10 @@ function Survey() {
   return (
     <SurveyContainer>
       <QuestionTitle>Question {questionNumber}</QuestionTitle>
-      {isDataLoading ? (
+      {isLoading ? (
         <Loader />
       ) : (
-        <QuestionContent>{surveyData[questionNumber]}</QuestionContent>
+        <QuestionContent>{surveyData && surveyData[questionNumber]}</QuestionContent>
       )}
       {answers && (
         <ReplyWrapper>

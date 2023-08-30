@@ -1,6 +1,6 @@
 import { formatJobList, formatQueryParams } from './'
 
-describe('The getJobTitle function', () => {
+describe('The formatJobList function', () => {
   it('should add a comma to a word', () => {
     const expectedState = 'item2,'
     expect(formatJobList('item2', 3, 1)).toEqual(expectedState)

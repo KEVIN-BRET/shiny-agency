@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { ThemeProvider } from '../../utils/context'
 
 describe('Card', () => {
-  test('Should render title and image', async () => {
+  it('Should render title and image', async () => {
     render(
       <ThemeProvider>
         <Card
@@ -18,7 +18,7 @@ describe('Card', () => {
     expect(cardPicture.src).toBe('http://localhost/myPicture.png')
     expect(cardTitle.textContent).toBe(' Harry Potter ')
   })
-  test('Should add ⭐️ around title', async () => {
+  it('Should add ⭐️ around title', async () => {
     render(
       <ThemeProvider>
         <Card
@@ -29,10 +29,7 @@ describe('Card', () => {
       </ThemeProvider>
     )
     const cardTitle = screen.getByText(/Harry/i)
-
-    // eslint-disable-next-line testing-library/no-node-access
-    const parentNode = cardTitle.closest('div');
-
+    const parentNode = cardTitle.closest('div')
     fireEvent.click(parentNode)
     expect(cardTitle.textContent).toBe('⭐️ Harry Potter ⭐️')
   })

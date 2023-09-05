@@ -1,9 +1,9 @@
-import Card from '../../components/Card'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import Card from '../../components/Card'
 import colors from '../../utils/style/colors'
 import { Loader } from '../../utils/style/Atoms'
 import { useFetch, useTheme } from '../../utils/hooks'
-import { Link } from 'react-router-dom'
 
 const CardsContainer = styled.div`
   display: grid;
